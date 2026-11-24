@@ -4,7 +4,7 @@ import re
 class CartPage:
     def __init__(self, page: Page) -> None:
         self.page = page
-        self.cart_btn = page.get_by_role("link", name = "Cart")
+        self.cart_btn = page.get_by_role("link", name = "Cart", exact = True)
         self.cart_rows = page.locator("//tr[contains(@id, 'product-')]")
         self.product_name = page.locator("//td[@class = 'cart_description']//a[text() = 'Blue Top']")
         self.product_count = page.locator("//td[@class = 'cart_quantity']/button")
