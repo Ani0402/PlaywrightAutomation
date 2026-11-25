@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, expect
-from pages.test_logout import Logout
-import re, pytest
+from pages.test_logout_page import Logout
+import re
 
 def test_logout(page: Page):
     logout = Logout(page)
