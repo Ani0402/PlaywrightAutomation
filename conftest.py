@@ -33,11 +33,7 @@ def attach_video_on_failure(request):
                     attachment_type=allure.attachment_type.WEBM
                 )
 
-@pytest.fixture(scope = 'session', autouse= True)
-def beforeAll():
-    print("Starting Test Suite")
-    yield
-    print("Completed Test Suite")
+
 
 @pytest.fixture(scope="function", autouse=True)
 def block_ads(context):
@@ -52,10 +48,4 @@ def block_ads(context):
     for pattern in ad_domains:
         context.route(pattern, lambda route: route.abort())
 
-
-@pytest.fixture(scope = 'function', autouse= True)
-def beforeEach():
-    print("Starting individual method")
-    yield
-    print("Ending individual method")
 
