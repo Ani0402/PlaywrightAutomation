@@ -19,5 +19,4 @@ def test_signup(page: Page, emailaddress, password):
     page.goto("https://www.automationexercise.com/")
     expect(page).to_have_title(re.compile("Automation Exercise"))
     print("Page have title: Automation Exercise")
-    # loginPage.test_login("testani@test.com", "test@123")
     loginPage.test_login(emailaddress, password)

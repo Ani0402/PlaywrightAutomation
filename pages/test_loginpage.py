@@ -15,7 +15,7 @@ class LoginPage:
         self.product1_addToCart = page.get_by_role("button", name= "Add to cart")
         self.product_add_succ_msg = page.get_by_text("Your product has been added to cart.")
         self.continue_shop_btn = page.get_by_role("button", name = "Continue Shopping")
-        self.product_name = page.get_by_role("heading", name = "Blue Top")
+        self.product_name = page.locator(".product-information").get_by_role("heading", name = "Blue Top")
         self.productsList = []
         self.productDict = defaultdict(int)
         self.quantity = 0
