@@ -23,11 +23,11 @@ def pytest_runtest_makereport(item, call):
 def capture_video_path(request):
     yield
     rep = getattr(request.node, "rep_call", None)
+    funcargs = getattr(request.node, "funcargs", None) or {}
     if rep and rep.failed:
-        page = request.node.funcargs.get("page")
-        if page and page.video:
+        page = funcargs.get("page")
+        if page and not page.is_closed() and page.video:
             request.node._video_path = page.video.path()
-
 
 def pytest_runtest_teardown(item, nextitem):
     # Runs AFTER pytest-playwright closes page and context
