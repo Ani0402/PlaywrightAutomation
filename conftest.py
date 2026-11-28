@@ -10,13 +10,22 @@ def pytest_runtest_makereport(item, call):
     setattr(item, f"rep_{rep.when}", rep)
 
     if rep.when == "call" and rep.failed:
-        page = item.funcargs.get("page")
+        funcargs = getattr(item, "funcargs", None) or {}
+        page = funcargs.get("page")
         if page and not page.is_closed():
-            allure.attach(
-                page.screenshot(),
-                name="failure_screenshot",
-                attachment_type=allure.attachment_type.PNG,
-            )
+            try:
+                screenshot = page.screenshot(timeout=5000)
+                allure.attach(
+                    screenshot,
+                    name="failure_screenshot",
+                    attachment_type=allure.attachment_type.PNG,
+                )
+            except Exception as exc:
+                allure.attach(
+                    str(exc),
+                    name="screenshot_error",
+                    attachment_type=allure.attachment_type.TEXT,
+                )
 
 
 @pytest.fixture(autouse=True)
